@@ -1,13 +1,9 @@
+import java.util.Scanner;
+
 public class Main {
 
-    private static void AgentAgent ()
+    private static void AgentAgent (int numberOfGames)
     {
-        // choose number of games or amount of time; change control on line 20/21
-		int numberOfGames = 100;
-        int numMins = 5;
-        final long numberOfMinutes = 1000l*1000*1000*60*numMins;
-        long startTime = System.nanoTime();
-
         Board board = new Board();
         Agent agent = new Agent(board, 1);
         Agent agent2 = new Agent(board, 2);
@@ -17,8 +13,7 @@ public class Main {
 
         int i = 0;
         // uncomment line 20 to run until time runs out; uncomment line 21 to run a set number of games
-		// for (; (System.nanoTime()-startTime) < numberOfMinutes; i++) // time limit
-		for (; i < numberOfGames; i++) // game count limit
+		for (int i = 0; i < numberOfGames; i++) // game count limit
 		{
             gameover = false;
 	        while (!gameover)
@@ -101,10 +96,28 @@ public class Main {
 
     public static void main (String[] args) {
 
-        // uncomment line for desired gameplay
-        // AgentAgent(); // play agent vs agent
-        // AgentHuman(); // play agent (p1) vs human (p2)
-        HumanAgent(); // play human (p1) vs agent (p2)
+        int gamechoice;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Choose which game you want to run.");
+        System.out.println("1. Agent vs Agent");
+        System.out.println("2. Agent vs Human");
+        System.out.println("3. Human vs Agent");
+        gamechoice = scanner.nextInt();
+
+        if (gamechoice == 1)
+        {
+            int num;
+            System.out.println("How many games do you want to run? ");
+            num = scanner.nextInt();
+            AgentAgent(num); // play agent vs agent
+        }
+        else if (gamechoice == 2)
+            AgentHuman(); // play agent (p1) vs human (p2)
+        else if (gamechoice == 3)
+            HumanAgent(); // play human (p1) vs agent (p2)
+        else
+            System.out.println("Please try again and enter a valid number.");
     }
 
 }
